@@ -4,9 +4,24 @@
 
 Pipeline gồm bốn job `Unit Test → Train → Eval → Deploy`. MLflow lưu thí nghiệm trên DagsHub, DVC lưu dữ liệu trên Google Cloud Storage và FastAPI phục vụ mô hình trên Compute Engine. GitHub Actions truy cập GCP bằng Workload Identity Federation, không dùng service-account key dài hạn.
 
-Mô hình production là Random Forest với `n_estimators=400`, `max_depth=None`, `min_samples_split=2` và `min_samples_leaf=2`. Cấu hình này cho kết quả tốt nhất trong các thử nghiệm đã chạy. Gradient Boosting và Logistic Regression cũng được thử và lưu trên MLflow để so sánh.
+## So sánh thí nghiệm và chọn siêu tham số
 
-| Dữ liệu huấn luyện | Accuracy | Weighted F1 |
+Các run trên MLflow dùng cùng tập đánh giá 500 mẫu của phase 1 và cho kết quả sau:
+
+| Mô hình | Siêu tham số | `accuracy` | `f1_score` (weighted) |
+|---|---|---:|---:|
+| Random Forest | `n_estimators=400`, `max_depth=None`, `min_samples_split=2`, `min_samples_leaf=2` | 0.682 | 0.6809 |
+| Random Forest | `n_estimators=200`, `max_depth=10`, `min_samples_split=5` | 0.644 | 0.6417 |
+| Gradient Boosting | `n_estimators=150`, `learning_rate=0.05`, `max_depth=3` | 0.604 | 0.6006 |
+| Logistic Regression | `C=1.0`, `max_iter=2000` | 0.568 | 0.5632 |
+| Random Forest | `n_estimators=100`, `max_depth=5`, `min_samples_split=2` | 0.564 | 0.5534 |
+| Random Forest | `n_estimators=50`, `max_depth=3`, `min_samples_split=2` | 0.558 | 0.5185 |
+
+Random Forest với 400 cây cho cả accuracy và weighted F1 cao nhất nên được chọn. `max_depth=None` giữ đủ năng lực học, còn `min_samples_leaf=2` hạn chế các lá chỉ chứa một mẫu. Đây cũng là cấu hình dùng cho model production.
+
+## So sánh hai giai đoạn dữ liệu
+
+| Dữ liệu huấn luyện | `accuracy` | `f1_score` (weighted) |
 |---:|---:|---:|
 | 2.998 mẫu | 0.682 | 0.6809 |
 | 5.996 mẫu | 0.744 | 0.7430 |
