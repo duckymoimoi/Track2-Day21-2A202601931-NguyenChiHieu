@@ -1,0 +1,4 @@
+[core]
+    remote = gcs
+['remote "gcs"']
+    url = gs://vinuni-mlops-day21-79888249254/dvc
