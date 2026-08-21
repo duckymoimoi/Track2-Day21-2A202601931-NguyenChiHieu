@@ -80,6 +80,10 @@ Mở:
 Chụp bảng run được tạo bởi GitHub Actions, có params và metrics. Không chụp
 trang token/settings.
 
+Run GitHub Actions đã xác minh token và remote tracking thành công:
+
+`https://github.com/duckymoimoi/K3-Track2-Day21-CI-CD-for-AI-Systems/actions/runs/32445210512`
+
 ## 7. Repo và gói nộp
 
 Repo public:
