@@ -73,9 +73,9 @@ Chụp một ảnh ở prefix `dvc/files/md5/` để thấy các object dữ li�
 
 ## 6. DagsHub MLflow — Bonus 1
 
-Sau khi cấu hình DagsHub, mở:
+Mở:
 
-`https://dagshub.com/<DAGSHUB_USER>/K3-Track2-Day21-CI-CD-for-AI-Systems.mlflow`
+`https://dagshub.com/duckymoimoi/K3-Track2-Day21-CI-CD-for-AI-Systems.mlflow`
 
 Chụp bảng run được tạo bởi GitHub Actions, có params và metrics. Không chụp
 trang token/settings.

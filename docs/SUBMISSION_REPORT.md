@@ -31,7 +31,8 @@ production trả `{"status":"ok"}` tại `/health` và dự đoán hợp lệ t�
 - Model được upload vào vùng candidate; chỉ promote sang `models/latest` sau
   khi qua ngưỡng 0.70 và không kém model production. Thử nghiệm rollback đã
   chặn model 0.734 vì thấp hơn production 0.744.
-- Workflow hỗ trợ MLflow tracking từ xa qua ba GitHub secrets DagsHub.
+- Workflow log MLflow từ xa lên DagsHub; access token được lưu trong GitHub
+  Secret `DAY21`, không xuất hiện trong code hoặc log.
 
 ## Khó khăn và cách xử lý
 
